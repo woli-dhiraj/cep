@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Consumption Results</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(pngtree-green-energy-saving-lamp-on-the-nature-background-image_16014213.jpg);
+            background-size: cover;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: transparent;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 10px;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: rgb(36, 39, 39);
+            background-color: whitesmoke;
+            border: 2px solid rgba(0, 0, 0, 0.4);
+            border-radius: 2rem;
+            padding: 7px;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            /* background: #f8d7da; */
+            /*  border: 1px solid #f5c6cb; */
+            color: whitesmoke;
+        }
+        #back{
+            background-color: whitesmoke;
+            color: rgb(21,22,22);
+            padding: 7px;
+            border: none;
+            border-radius: 1rem;
+            
+        }
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Energy Consumption Results</h2>
+        <div class="result" id="result-container"></div>
+        <div class="back-button">
+            <button id="back" onclick="window.history.back()">Back to Form</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the results passed from the previous page (via localStorage)
+        const result = localStorage.getItem('energyResults');
+        if (result) {
+            document.getElementById("result-container").innerHTML = result;
+        } else {
+            document.getElementById("result-container").innerHTML = "No results available.";
+        }
+    </script>
+</body>
+
+</html>

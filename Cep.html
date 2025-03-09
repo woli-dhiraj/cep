@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cep.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="nav-bar">
+        <div class="right">
+            <i class="fa-solid fa-bolt-lightning"></i>
+            <p class="logo">Energy Track</p>
+        </div>
+        <div class="left">
+            <div class="nav-obj">
+                <ul>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="p.html">Track</a></li> <!-- Redirects to the form page -->
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>            
+        </div>
+        
+    </div>
+
+    <div class="main-cont1">
+        <div class="about">
+            <div class="main1-left">
+                <p class="slogun"></p>
+                
+                <p class="slo">Manage your energy consumption, reduce your carbon footprint<br> and save money with our tracking tools</p>
+                <button class="track">
+                    <a href="p.html" style="color: white; text-decoration: none;" id="getStarted">Get Started</a>
+                </button>
+                
+            </div>
+        </div>
+        <div class="main1-right">
+        </div>
+        <div class="offers1">
+            <i class="fa-solid fa-bolt-lightning" id="lighting"></i>
+            <p class="off">Save upto 30% off on bills</p>
+        </div>
+        <div class="offers2">
+            <i class="fa-solid fa-bolt-lightning lighting" id="lighting"></i>
+            <p class="off">Save upto 30% off on bills</p>
+        </div>
+    </div>
+    <div class="main-cont2">
+        <div class="works">
+            <h1>How it Works</h1>
+        </div>
+        <!-- <div class="eg">
+            <i class="fa-regular fa-sun"></i>
+            <i class="fa-solid fa-droplet"></i>
+            <i class="fa-solid fa-bomb"></i>
+        </div> -->
+        <div class="sub2">
+            <div class="cont1">
+                <div class="eg">
+                <i class="fa-regular fa-sun" id="fonts"></i></div>
+                <p class="usage">Monitor Usage</p>
+                <p class="same">Track your energy in real time with our <br>advance monitoring system</p>
+            </div>
+            <div class="cont2">
+                <div class="eg1">
+                <i class="fa-solid fa-bomb" id="fonts"></i></div>
+                <p class="insigth">Get Insights</p>
+                <p class="same">Recieve personalized tips and insights to optimize your <br> energy usage and reduce waste</p>
+            </div>
+            <div class="cont3">
+                <div class="eg2">
+                <i class="fa-solid fa-droplet" id="fonts"></i></div>
+                <p class="re">Save Resources</p>
+                <p class="same">Implement Changes based on our recommendations to <br>save energy money and the environment</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-cont3">
+        
+        <div class="main">
+            <p class="consText">Your Energy Usage</p>
+            <p class="cons">Monthly Energy Consumption</p>
+            <div class="graph"></div>
+        </div>
+    </div>
+    <div class="main-cont4">
+        <p class="says">What Our User Says</p>
+        <div class="testimonial-container">
+            <div class="testimonial">
+                <img src="man.png" alt="User Image">
+                <p>"This website helped me track my energy consumption effortlessly. My electricity bill dropped by 20% after following its tips!"</p>
+                <h4>Sarah Johnson</h4>
+            </div>
+            <div class="testimonial">
+                <img src="woman.png" alt="User Image">
+                <p>"A game-changer! I never realized how much energy I was wasting until I started using this tool. Highly recommended!"</p>
+                <h4>Michael Lee</h4>
+            </div>
+            <div class="testimonial">
+                <img src="man.png" alt="User Image">
+                <p>"I love the insights and suggestions! Now, I optimize my appliance usage and save money every month."</p>
+                <h4>Emily Davis</h4>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer">
+        
+        <p class="footer-bottom">&copy; <span id="year"></span> Energy Track. All Rights Reserved.</p>
+    </footer>
+    
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <!-- Setup and start animation! -->
+    <script>
+        var typed = new Typed('.slogun', {
+            strings: ['Track Your Energy,<br>Save The Planet'],
+            typeSpeed: 45,
+            // backSpeed: 30,
+            // loop: true
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energy Usage Form</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url(pngtree-green-energy-saving-lamp-on-the-nature-background-image_16014213.jpg);
+      background-size: cover;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .container {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 400px;
+    }
+
+    h2, h3 {
+      text-align: center;
+      font-weight: bolder;
+      color: whitesmoke;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      color: whitesmoke;
+    }
+
+    input, select {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: whitesmoke;
+      color: rgb(2, 25, 2);
+      border: none;
+      border-radius: 2rem;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: rgb(188, 219, 180);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form id="energyForm" action="http://127.0.0.1:8000/energy-usage" method="post">
+      <h2>Energy Usage Form</h2>
+
+      <div class="step step-1">
+        <h3>Step 1: General Information</h3>
+        <label for="user-type">User:</label>
+        <select id="user-type" name="user-type">
+          <option value=""></option>
+          <option value="Household">Household</option>
+          <option value="Enterprise">Enterprise</option>
+        </select>
+
+        <label>Location:</label>
+        <input type="text" name="location" placeholder="City/Region">
+
+        <label>Building Size (sq ft/m²):</label>
+        <input type="number" name="buildingSize" placeholder="Total area">
+
+        <label>Number of People/Employees:</label>
+        <input type="number" name="occupants" placeholder="Number of occupants">
+
+        <button type="button" onclick="nextStep(1)">Next →</button>
+      </div>
+
+      <div class="step step-2" style="display: none;">
+        <h3>Step 2: Energy Consumption</h3>
+        <label>Primary Heating System:</label>
+        <select name="heatingSystem">
+          <option>Electric</option>
+          <option>Gas</option>
+          <option>Solar</option>
+          <option>None</option>
+        </select>
+
+        <label>Cooling System Type:</label>
+        <select name="coolingSystem">
+          <option>AC</option>
+          <option>Fan</option>
+          <option>None</option>
+        </select>
+
+        <label>Number of High-Power Devices:</label>
+        <input type="number" name="highPowerDevices" placeholder="E.g., heaters, refrigerators">
+
+        <label>Number of Fans:</label>
+        <input type="number" name="numFans" placeholder="Total fans in the house">
+
+        <label>Number of Lights:</label>
+        <input type="number" name="numLights" placeholder="Total lights in the house">
+
+        <button type="button" onclick="prevStep(2)">← Previous</button>
+        <button type="button" onclick="nextStep(2)">Next →</button>
+      </div>
+
+      <div class="step step-3" style="display: none;">
+        <h3>Step 3: Energy Usage Patterns</h3>
+        <label>Average Daily Usage Hours:</label>
+        <select name="usageHours">
+          <option>Less than 5 hours</option>
+          <option>5-10 hours</option>
+          <option>More than 10 hours</option>
+        </select>
+
+        <label>Energy Source:</label>
+        <select name="energySource">
+          <option>Grid</option>
+          <option>Solar</option>
+          <option>Hybrid</option>
+        </select>
+
+        <button type="button" onclick="prevStep(3)">← Previous</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    <div id="result" style="display: none; background: transparent; padding: 15px; border-radius: 10px;color: whitesmoke; margin-top: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+      <!-- Results will be displayed here -->
+    </div>
+    
+  </div>
+  <script src="p.js"></script>
+  <script>
+    let currentStep = 1;
+
+    function nextStep(step) {
+      document.querySelector(`.step-${step}`).style.display = 'none';
+      document.querySelector(`.step-${step + 1}`).style.display = 'block';
+      currentStep = step + 1;
+    }
+
+    function prevStep(step) {
+      document.querySelector(`.step-${step}`).style.display = 'none';
+      document.querySelector(`.step-${step - 1}`).style.display = 'block';
+      currentStep = step - 1;
+    }
+    document.getElementById("energyForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
+
+    let buildingSize = parseFloat(document.querySelector("input[name='buildingSize']").value);
+    let occupants = parseInt(document.querySelector("input[name='occupants']").value);
+    let highPowerDevices = parseInt(document.querySelector("input[name='highPowerDevices']").value);
+    let numFans = parseInt(document.querySelector("input[name='numFans']").value);
+    let numLights = parseInt(document.querySelector("input[name='numLights']").value);
+    let usageHours = document.querySelector("select[name='usageHours']").value;
+
+    // Estimate consumption (basic formula)
+    let estimatedUsage = (buildingSize * 0.5) + (occupants * 1.5) + (highPowerDevices * 3) + (numFans * 0.75) + (numLights * 0.5);
+    
+    // Adjust based on usage hours
+    if (usageHours === "More than 10 hours") {
+        estimatedUsage *= 1.5;
+    } else if (usageHours === "5-10 hours") {
+        estimatedUsage *= 1.2;
+    }
+
+    let actualUsage = estimatedUsage * (Math.random() * (1.4 - 0.8) + 0.8); // Simulated actual usage
+
+    // Generate suggestions if actual usage is higher
+    let suggestions = [];
+    if (actualUsage > estimatedUsage) {
+        suggestions.push("Turn off unused lights and appliances.<br><br>");
+        suggestions.push("Use energy-efficient LED bulbs.<br><br>");
+        suggestions.push("Switch to solar or hybrid energy sources.<br><br>");
+        suggestions.push("Use fans instead of air conditioners when possible.<br><br>");
+        suggestions.push("Ensure your home is well-insulated to reduce heating/cooling costs.<br><br>");
+    } else {
+        suggestions.push("Your energy consumption is within expected levels. Keep up the good work!");
+    }
+
+    // Display results below the form
+    let resultContainer = document.getElementById("result");
+    resultContainer.innerHTML = `
+        <h3>Energy Usage Report</h3>
+        <p><strong>Estimated Usage:</strong> ${estimatedUsage.toFixed(2)} kWh</p>
+        <p><strong>Actual Usage:</strong> ${actualUsage.toFixed(2)} kWh</p>
+        <h4>Suggestions:</h4>
+        <ul>${suggestions.map(s => `<li>${s}</li>`).join('')}</ul>
+    `;
+
+    resultContainer.style.display = "block"; // Show the result section
+});
+
+
+    // AJAX Form Submission
+    document.getElementById("energyForm").addEventListener("submit", function (event) {
+      event.preventDefault();  // Prevent default form submission
+
+      var formData = {
+        user_type: document.getElementById("user-type").value,
+        location: document.querySelector("[name='location']").value,
+        building_size: document.querySelector("[name='buildingSize']").value,
+        occupants: document.querySelector("[name='occupants']").value,
+        heating_system: document.querySelector("[name='heatingSystem']").value,
+        cooling_system: document.querySelector("[name='coolingSystem']").value,
+        high_power_devices: document.querySelector("[name='highPowerDevices']").value,
+        num_fans: document.querySelector("[name='numFans']").value,
+        num_lights: document.querySelector("[name='numLights']").value,
+        usage_hours: document.querySelector("[name='usageHours']").value,
+        energy_source: document.querySelector("[name='energySource']").value
+      };
+
+      fetch("http://127.0.0.1:8000/energy-usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => alert(data.message))
+      .catch(error => alert("Error: " + error));
+    });
+  </script>
+</body>
+
+</html>
